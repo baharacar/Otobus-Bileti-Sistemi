@@ -49,10 +49,10 @@ public class BiletListesi extends JFrame {
         verileriGetir();
         
         table.setRowHeight(30); //satır genişliği
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15)); // Başlıkları kalın yap
-        table.getTableHeader().setBackground(new Color(70, 70, 70)); // Tablo başlığı gri
-        table.getTableHeader().setForeground(Color.WHITE); // Başlık yazısı Beyaz
-        table.setSelectionBackground(new Color(230, 240, 250)); // Seçilen satır hafif turuncu/kahve
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
+        table.getTableHeader().setBackground(new Color(70, 70, 70)); // tablo başlığı gri
+        table.getTableHeader().setForeground(Color.WHITE); // başlık yazısı Beyaz
+        table.setSelectionBackground(new Color(230, 240, 250)); //seçilen satır acık mavi
         table.setGridColor(new Color(220,220,220));
         
         
