@@ -1,4 +1,4 @@
-package bilet;
+package proje;
 
 import java.awt.EventQueue;
 import java.awt.Font;
