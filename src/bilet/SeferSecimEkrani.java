@@ -1,4 +1,4 @@
-package proje;
+package bilet;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -88,7 +88,7 @@ public class SeferSecimEkrani extends JFrame {
 		btn_ileri = new JButton("Koltuk seçimi için ilerle");
 		btn_ileri.setVisible(false);
 		btn_ileri.setBackground(Color.LIGHT_GRAY);
-		btn_ileri.setBounds(147, 276, 135, 36);
+		btn_ileri.setBounds(123, 305, 194, 36);
 		contentPane.add(btn_ileri);
 			
 		
@@ -97,9 +97,18 @@ public class SeferSecimEkrani extends JFrame {
 		public void mouseClicked(java.awt.event.MouseEvent evt){
 		int row=table_seferler.rowAtPoint(evt.getPoint());
 		if(row>=0) {
-			secilenSeferID = Integer.parseInt(model.getValueAt(row, 0).toString());
-			btn_ileri.setVisible(true);
+			Object deger=table_seferler.getValueAt(row, 0);
+			if(deger !=null) {
+				try {
+					secilenSeferID=Integer.parseInt(deger.toString());
+					System.out.println("Seçilen ID başarılı: "+secilenSeferID);
+					btn_ileri.setVisible(true);
+					}catch(NumberFormatException ex) {
+						System.out.println("HATA: ID hücresinde sayı yok!Gelen veri:"+deger);
+						}
+				}
 			}
+			
 		txtSeferSeimEkran= new JTextField();
 		
 		}
