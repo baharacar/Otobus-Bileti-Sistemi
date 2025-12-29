@@ -1,4 +1,5 @@
 package bilet;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
@@ -17,7 +18,6 @@ public class SeferSecimEkrani extends JFrame {
     private JLabel lblGuzergahVeri;
     private int secilenSeferID = -1;
     
-    // SABİT GÜZERGAH
     private final String SABIT_GUZERGAH = "İSTANBUL - ANKARA";
 
     public static void main(String[] args) {
@@ -39,10 +39,9 @@ public class SeferSecimEkrani extends JFrame {
         
         contentPane = new JPanel();
         contentPane.setLayout(null);
-        contentPane.setBackground(new Color(245, 245, 245));
+        contentPane.setBackground(new Color(215, 206, 206));
         setContentPane(contentPane);
 
-        // --- ÜST PANEL: FİLTRELEME ---
         JLabel lblGuzergah = new JLabel("Güzergah:");
         lblGuzergah.setFont(new Font("Segoe UI", Font.BOLD, 16));
         lblGuzergah.setBounds(50, 30, 100, 30);
@@ -58,7 +57,7 @@ public class SeferSecimEkrani extends JFrame {
         lblTarihSec.setBounds(50, 80, 120, 30);
         contentPane.add(lblTarihSec);
 
-        // 1 Haftalık Tarih Oluşturma
+
         comboTarih = new JComboBox<>();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (int i = 0; i < 7; i++) {
@@ -69,11 +68,12 @@ public class SeferSecimEkrani extends JFrame {
         contentPane.add(comboTarih);
 
         JButton btnSorgula = new JButton("Seferleri Gör");
+        btnSorgula.setBackground(new Color(163, 194, 179));
         btnSorgula.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnSorgula.setBounds(340, 80, 150, 30);
         contentPane.add(btnSorgula);
 
-        // --- TABLO ALANI ---
+
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(50, 150, 700, 300);
         contentPane.add(scrollPane);
@@ -85,13 +85,13 @@ public class SeferSecimEkrani extends JFrame {
 
         btn_ileri = new JButton("Koltuk Seçimi İçin İlerle >>");
         btn_ileri.setVisible(false);
-        btn_ileri.setBackground(new Color(60, 179, 113));
-        btn_ileri.setForeground(Color.WHITE);
+        btn_ileri.setBackground(new Color(163, 194, 179));
+        btn_ileri.setForeground(new Color(0, 0, 0));
         btn_ileri.setFont(new Font("Segoe UI", Font.BOLD, 18));
         btn_ileri.setBounds(250, 480, 300, 60);
         contentPane.add(btn_ileri);
 
-        // --- EVENTLER ---
+
         btnSorgula.addActionListener(e -> seferleriFiltrele());
 
         table_seferler.addMouseListener(new MouseAdapter() {
@@ -119,12 +119,10 @@ public class SeferSecimEkrani extends JFrame {
 
         try {
             Connection conn = seferler_sql.baglan();
-            // Filtreleme sorgusu
             String sorgu = "SELECT * FROM uygun_seferler WHERE Güzergah = ? AND Tarih = ?";
             PreparedStatement pst = conn.prepareStatement(sorgu);
             pst.setString(1, SABIT_GUZERGAH);
             pst.setString(2, secilenTarih);
-            
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -139,8 +137,6 @@ public class SeferSecimEkrani extends JFrame {
             }
             
             table_seferler.setModel(model);
-            
-            // Tasarım ayarları
             table_seferler.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
             table_seferler.getColumnModel().getColumn(1).setPreferredWidth(200);
             
