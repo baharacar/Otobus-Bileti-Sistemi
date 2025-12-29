@@ -93,9 +93,7 @@ public class BiletListesi extends JFrame {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/bilet_sistemi", "root", "Betul.1137");
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM onaylanmis_biletler");
-            table.getColumnModel().getColumn(0).setPreferredWidth(30); // ID küçük olsun
-            table.getColumnModel().getColumn(1).setPreferredWidth(150); // Güzergah geniş olsun
-
+            
             while (rs.next()) {
                 Object[] satir = {
                     rs.getInt("id"),
@@ -107,13 +105,22 @@ public class BiletListesi extends JFrame {
                 };
                 model.addRow(satir);
             }
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); // Sütunları panele yay
             
+            table.getColumnModel().getColumn(0).setPreferredWidth(40);  // ID
+            table.getColumnModel().getColumn(1).setPreferredWidth(180); // Güzergah
+            table.getColumnModel().getColumn(2).setPreferredWidth(100); // Tarih
+            table.getColumnModel().getColumn(3).setPreferredWidth(70);  // Saat
+            
+            // KRİTİK AYAR: Koltuk kolonunu 200 yapıyoruz ki "5(BAYAN)" yazıları sığsın
+            table.getColumnModel().getColumn(4).setPreferredWidth(220); 
+            
+            table.getColumnModel().getColumn(5).setPreferredWidth(80);  // Fiyat
+
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Veriler çekilirken hata oluştu!");
         }
     }
 }
-	
-
-

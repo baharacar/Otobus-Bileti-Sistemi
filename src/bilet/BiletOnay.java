@@ -143,14 +143,5 @@ public class BiletOnay extends JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Hata: " + ex.getMessage());
         }
-        
-
-
-
     }
 }
-
-
-
-
-
