@@ -30,26 +30,22 @@ public class BiletOnay extends JFrame {
     public BiletOnay() {
         setTitle("Bilet Satın Alma Onayı");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 500, 400);
-        setLocationRelativeTo(null); // Merkezi açılış
+        setBounds(100, 100, 538, 421);
+        setLocationRelativeTo(null); 
 
-        // gridLayout 6 satır 2 sütun ekranı tamamen doldurur
         contentPane = new JPanel(new GridLayout(8, 2, 10, 10));
         contentPane.setBorder(new EmptyBorder(30, 40, 30, 40));
-        contentPane.setBackground(new Color(248, 245, 242));
+        contentPane.setBackground(new Color(215, 206, 206));
         setContentPane(contentPane);
         
-        //başlik
         JLabel lblBaslik = new JLabel("BİLET BİLGİLERİ");
         lblBaslik.setForeground(Color.BLACK); 
-        lblBaslik.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        lblBaslik.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 26));
         lblBaslik.setHorizontalAlignment(SwingConstants.CENTER);
         
-        
         contentPane.add(lblBaslik); 
-        contentPane.add(new JLabel("")); //başlığın yanındaki hücre boş 
+        contentPane.add(new JLabel(""));
         
-
         // pencere büyütülüp küçültüldğünde ekrandakilerin de aynı oranda hareket etmesi için olay dinleyici
         this.addComponentListener(new ComponentAdapter() {
             @Override
@@ -64,56 +60,34 @@ public class BiletOnay extends JFrame {
         bilesenEkle("Koltuk No:", secilenKoltuk);
         bilesenEkle("Fiyat:", secilenFiyat + " TL");
 
-        // boşluk ve onay butonu
-        contentPane.add(new JLabel("")); //sol boşluk
-        
+        contentPane.add(new JLabel("")); 
         btnOnayla = new JButton("Bileti Onayla");
-        btnOnayla.setBackground(new Color(101, 0, 0)); //bordo
-        btnOnayla.setForeground(Color.WHITE);
+        btnOnayla.setBackground(new Color(163, 194, 179)); 
+        btnOnayla.setForeground(Color.BLACK);
         btnOnayla.setFont(new Font("Tahoma", Font.BOLD, 16));
-        btnOnayla.setBorder(BorderFactory.createLineBorder(new Color(60, 30, 20), 1));//buton kenarı rengi
+        btnOnayla.setBorder(BorderFactory.createLineBorder(new Color(60, 30, 20), 1));
         btnOnayla.setFocusPainted(false);
         contentPane.add(btnOnayla);
         
-        //buton üstüne gelince renk değiştirme
-        btnOnayla.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                //mouse gelince kahverengi yap
-                btnOnayla.setBackground(new Color(60,30,20));
-                btnOnayla.setBorder(BorderFactory.createLineBorder(new Color(100, 0, 0), 2));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                //mouse ayrılınca tekrar bordo yap
-                btnOnayla.setBackground(new Color(101, 0, 0));
-            }
-        });
-
-        //veritabanı kayıt işlemi
         btnOnayla.addActionListener(e -> biletKaydet());
     }
 
-    //ekrandaki tüm yazıların boyutunu pencereye göre günceller.dinleyici olayı haber verir bu metot yapar.
     private void oranliFontAyari() {
-        int yeniBoyut = getWidth() / 25; //genişliğin 25te biri font boyutu
-        if (yeniBoyut < 14) yeniBoyut = 14; //min font sınırı
+        int yeniBoyut = getWidth() / 25; 
+        if (yeniBoyut < 14) yeniBoyut = 14; 
 
         Font dinamikFont = new Font("SansSerif", Font.BOLD, yeniBoyut);
 
-        //panel içindeki her şeyin fontunu tek tek güncelle
         for (Component c : contentPane.getComponents()) {
             c.setFont(dinamikFont);
         }
     }
 
-    // yardımcı metod
     private void bilesenEkle(String baslik, String veri) {
         JLabel lblBaslik = new JLabel(baslik);
         lblBaslik.setForeground(Color.DARK_GRAY);
         JLabel lblVeri = new JLabel(veri);
-        lblVeri.setForeground(Color.BLUE);
+        lblVeri.setForeground(Color.black);
         
         contentPane.add(lblBaslik);
         contentPane.add(lblVeri);
@@ -133,11 +107,11 @@ public class BiletOnay extends JFrame {
             pst.executeUpdate();
             JOptionPane.showMessageDialog(this, "İşlem Başarılı! İyi Yolculuklar.");
             conn.close();
-            //listeyi aç
+            
             BiletListesi liste = new BiletListesi();
             liste.setVisible(true);
 
-            //onay sayfasini kapat
+            
             this.dispose();
             
         } catch (Exception ex) {

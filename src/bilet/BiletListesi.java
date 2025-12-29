@@ -14,28 +14,28 @@ public class BiletListesi extends JFrame {
     public BiletListesi() {
         setTitle("Sistemdeki Tüm Onaylanmış Biletler");
         setBounds(100, 100, 600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Sadece bu pencereyi kapatır
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         getContentPane().setBackground(new Color(248,245,242));
         
         JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(230, 230, 230)); //hafif gri arka plan
+        headerPanel.setBackground(new Color(215, 206, 206)); 
         headerPanel.setBorder(new EmptyBorder(15, 0, 15, 0));
 
         JLabel lblListeBaslik = new JLabel("ONAYLANMIŞ BİLETLER");
-        lblListeBaslik.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        lblListeBaslik.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 26));
         lblListeBaslik.setForeground(Color.BLACK);
         headerPanel.add(lblListeBaslik);
 
-        // Sayfanın en üstüne ekle (Tablonun üstünde durur)
+        
         getContentPane().add(headerPanel, BorderLayout.NORTH);
 
-        //yablo Sütunları
+       
         String[] kolonlar = {"ID", "Güzergah", "Tarih", "Saat", "Koltuk", "Fiyat"};
         model = new DefaultTableModel(kolonlar, 0) {
         	@Override
         	public boolean isCellEditable(int row, int column) {
-                //tüm hücreler için düzenlemeyi kapat (false döndür)
+               
                 return false;
         	}
         };
@@ -48,41 +48,41 @@ public class BiletListesi extends JFrame {
 
         verileriGetir();
         
-        table.setRowHeight(30); //satır genişliği
+        table.setRowHeight(30);
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 15));
-        table.getTableHeader().setBackground(new Color(70, 70, 70)); // tablo başlığı gri
-        table.getTableHeader().setForeground(Color.WHITE); // başlık yazısı Beyaz
-        table.setSelectionBackground(new Color(230, 240, 250)); //seçilen satır acık mavi
+        table.getTableHeader().setBackground(new Color(70, 70, 70)); 
+        table.getTableHeader().setForeground(Color.WHITE); 
+        table.setSelectionBackground(new Color(230, 240, 250)); 
         table.setGridColor(new Color(220,220,220));
         
+        JButton btnSeferlereDon = new JButton("Yeni Bilet / Seferlere Dön");
+        btnSeferlereDon.setPreferredSize(new Dimension(200, 35));
+        btnSeferlereDon.setBackground(new Color(70, 130, 180));
+        btnSeferlereDon.setForeground(Color.WHITE);
+        btnSeferlereDon.setFocusPainted(false);
+        btnSeferlereDon.setFont(new Font("Tahoma", Font.BOLD, 12));
         
-        // alt panel ve kapat butonu
+        
+        btnSeferlereDon.addActionListener(e -> {
+            new SeferSecimEkrani().setVisible(true); 
+            dispose(); 
+        });
+        
+        
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(248, 245, 242));
+        buttonPanel.setBackground(new Color(215, 206, 206));
         buttonPanel.setBorder(new javax.swing.border.EmptyBorder(10, 10, 10, 10));
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         JButton btnKapat = new JButton("Kapat");
         btnKapat.setPreferredSize(new Dimension(120, 35));
-        btnKapat.setBackground(new Color(101, 0, 0)); //bordo
-        btnKapat.setForeground(Color.WHITE);
+        btnKapat.setBackground(new Color(163, 194, 179));
+        btnKapat.setForeground(new Color(0, 0, 0));
         btnKapat.setFocusPainted(false);
         btnKapat.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-        
-        btnKapat.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btnKapat.setBackground(new Color(60, 30, 20)); //mouse üzerine gelince kahverengi
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnKapat.setBackground(new Color(101, 0, 0)); //mouse ayrılınca bordo
-            }
-        });
-
-        // Kapat Butonu Tıklama Olayı
         btnKapat.addActionListener(e -> dispose());
+        buttonPanel.add(btnSeferlereDon);
 
         buttonPanel.add(btnKapat);
         
@@ -105,18 +105,6 @@ public class BiletListesi extends JFrame {
                 };
                 model.addRow(satir);
             }
-            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); // Sütunları panele yay
-            
-            table.getColumnModel().getColumn(0).setPreferredWidth(40);  // ID
-            table.getColumnModel().getColumn(1).setPreferredWidth(180); // Güzergah
-            table.getColumnModel().getColumn(2).setPreferredWidth(100); // Tarih
-            table.getColumnModel().getColumn(3).setPreferredWidth(70);  // Saat
-            
-            // KRİTİK AYAR: Koltuk kolonunu 200 yapıyoruz ki "5(BAYAN)" yazıları sığsın
-            table.getColumnModel().getColumn(4).setPreferredWidth(220); 
-            
-            table.getColumnModel().getColumn(5).setPreferredWidth(80);  // Fiyat
-
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
