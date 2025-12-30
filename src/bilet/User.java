@@ -1,4 +1,4 @@
-package Model;
+package bilet;
 
 public class User {
     private String Adsoyad;

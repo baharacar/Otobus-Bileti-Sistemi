@@ -1,36 +1,42 @@
-import Service.UserService;
+package bilet;
 
 import javax.swing.*;
+import java.awt.Color;
+import java.awt.Font;
 
 public class RegisterFrame extends JFrame {
-
     private JTextField txtAdSoyad;
     private JPasswordField txtSifre;
 
     public RegisterFrame() {
+        getContentPane().setBackground(new Color(215, 206, 206));
         setTitle("Üye Ol");
-        setSize(300, 200);
-        setLayout(null);
+        setSize(500, 400);
+        getContentPane().setLayout(null);
 
         JLabel lblAd = new JLabel("Ad Soyad:");
-        lblAd.setBounds(20, 20, 80, 25);
-        add(lblAd);
+        lblAd.setFont(new Font("Serif", Font.BOLD, 20));
+        lblAd.setBounds(50, 92, 120, 30);
+        getContentPane().add(lblAd);
 
         txtAdSoyad = new JTextField();
-        txtAdSoyad.setBounds(110, 20, 150, 25);
-        add(txtAdSoyad);
+        txtAdSoyad.setBounds(180, 91, 250, 40);
+        getContentPane().add(txtAdSoyad);
 
         JLabel lblSifre = new JLabel("Şifre:");
-        lblSifre.setBounds(20, 60, 80, 25);
-        add(lblSifre);
+        lblSifre.setFont(new Font("Serif", Font.BOLD, 20));
+        lblSifre.setBounds(50, 168, 120, 30);
+        getContentPane().add(lblSifre);
 
         txtSifre = new JPasswordField();
-        txtSifre.setBounds(110, 60, 150, 25);
-        add(txtSifre);
+        txtSifre.setBounds(180, 167, 250, 40);
+        getContentPane().add(txtSifre);
 
         JButton btnKayit = new JButton("Kaydol");
-        btnKayit.setBounds(90, 110, 100, 30);
-        add(btnKayit);
+        btnKayit.setFont(new Font("Tahoma", Font.BOLD, 18));
+        btnKayit.setBackground(new Color(163, 194, 179));
+        btnKayit.setBounds(166, 261, 150, 50);
+        getContentPane().add(btnKayit);
 
         btnKayit.addActionListener(e -> {
             String adSoyad = txtAdSoyad.getText();
@@ -40,7 +46,7 @@ public class RegisterFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Üyelik başarılı");
             dispose(); // pencereyi kapat
         });
-
+        this.setLocationRelativeTo(null); // Pencereyi ekranın merkezine konumlandırır
         setVisible(true);
     }
 }

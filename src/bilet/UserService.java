@@ -1,5 +1,5 @@
-package Service;
-import Model.User;
+package bilet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +12,9 @@ public class UserService {
     }
 
     public static boolean login(String Adsoyad,String Sifre){
-       for(User user: users){
-           if(user.getAdsoyad().equals(Adsoyad)&& user.getSifre().equals(Sifre)){return true;}
-       }
+        for(User user: users){
+            if(user.getAdsoyad().equals(Adsoyad)&& user.getSifre().equals(Sifre)){return true;}
+        }
         return false;
     }
     public static void register(User user){
